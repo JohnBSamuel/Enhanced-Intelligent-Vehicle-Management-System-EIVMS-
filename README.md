@@ -1,0 +1,2 @@
+# Enhanced-Intelligent-Vehicle-Management-System-EIVMS-
+Enhanced Intelligent Vehicle Management System (EIVMS) is an AI-powered fleet management solution with real-time GPS tracking, predictive maintenance, and driver analytics. It offers a web dashboard for managers and a mobile app for drivers, optimizing operations, reducing costs, and improving efficiency with intuitive UI and data-driven insights.
