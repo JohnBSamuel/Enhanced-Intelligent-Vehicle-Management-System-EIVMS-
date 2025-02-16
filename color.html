@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVMS Luxury Dark Theme</title>
+    <style>
+        :root {
+            --primary: #0F172A;
+            --secondary: #1E293B;
+            --accent: #0EA5E9;
+            --accent-glow: rgba(14, 165, 233, 0.15);
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --text-primary: #E2E8F0;
+            --text-secondary: #94A3B8;
+            --border: #334155;
+            --gold: #FFD700;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui;
+        }
+
+        body {
+            background: var(--primary);
+            color: var(--text-primary);
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .logo {
+            font-weight: 600;
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, var(--accent), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sidebar {
+            background: var(--secondary);
+            padding: 1.5rem;
+            width: 240px;
+            border-right: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-item {
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border-radius: 6px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
+            transition: 0.5s;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-primary);
+        }
+
+        .nav-item:hover::before {
+            left: 100%;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+            box-shadow: 0 0 8px currentColor;
+        }
+
+        .healthy { background: var(--success); }
+        .warning { background: var(--warning); }
+        .critical { background: var(--error); }
+
+        .dashboard-card {
+            background: linear-gradient(145deg, var(--secondary), var(--primary));
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, var(--accent-glow), transparent);
+            animation: rotate 6s linear infinite;
+        }
+
+        .dashboard-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .live-map {
+            height: 400px;
+            background: var(--primary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .live-map::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 60%, var(--accent-glow));
+            animation: shimmer 8s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .notification-badge {
+            background: linear-gradient(45deg, var(--error), #DC2626);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+        }
+
+        button {
+            background: linear-gradient(45deg, var(--accent), #0284C7);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <header class="dashboard-header">
+            <div class="logo">EVMS PRO</div>
+            <div class="header-controls">
+                <input type="text" placeholder="🔍 Search..." 
+                       style="background: rgba(255,255,255,0.05); border: 1px solid var(--border); 
+                              padding: 0.5rem 1rem; border-radius: 8px; color: var(--text-primary);
+                              backdrop-filter: blur(10px)">
+                <div style="display: flex; gap: 1.5rem; align-items: center">
+                    <div class="notification-badge">3 Alerts</div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary);
+                               background: rgba(255,255,255,0.05); padding: 0.5rem 1rem; border-radius: 8px">
+                        <div class="status-indicator healthy"></div>
+                        John Doe
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="sidebar">
+            <div class="nav-item">🚀 Dashboard</div>
+            <div class="nav-item">🌍 Live Tracking</div>
+            <div class="nav-item">📈 Analytics</div>
+            <div class="nav-item">🛠 Maintenance</div>
+            <div class="nav-item">👤 Drivers</div>
+            <div class="nav-item">⚙️ Settings</div>
+        </div>
+
+        <div class="main-content">
+            <div class="live-map">
+                <div style="padding: 1rem; color: var(--text-secondary); position: relative; z-index: 1">
+                    Live Map Integration
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem">
+                <div class="dashboard-card">
+                    <h3 style="margin-bottom: 1rem; color: var(--text-primary)">Fleet Health</h3>
+                    <div style="display: flex; gap: 1.5rem; align-items: center">
+                        <div style="display: flex; align-items: center">
+                            <div class="status-indicator healthy"></div>
+                            <span>24 OK</span>
+                        </div>
+                        <div style="display: flex; align-items: center">
+                            <div class="status-indicator warning"></div>
+                            <span>3 Warning</span>
+                        </div>
+                        <div style="display: flex; align-items: center">
+                            <div class="status-indicator critical"></div>
+                            <span>1 Critical</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3 style="margin-bottom: 1rem; color: var(--text-primary)">Maintenance Alerts</h3>
+                    <div style="color: var(--text-secondary)">
+                        <div style="padding: 0.5rem 0; border-bottom: 1px solid var(--border); 
+                                    display: flex; justify-content: space-between">
+                            <div>#VH-2289</div>
+                            <div style="color: var(--error)">Engine Check</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-view" style="/* Mobile view styles from previous version with gradient enhancements */">
+        <!-- Enhanced mobile view content -->
+    </div>
+
+    <script>
+        document.querySelectorAll('.dashboard-card').forEach(card => {
+            card.addEventListener('mouseover', () => {
+                card.style.transform = 'translateY(-5px)';
+            });
+            card.addEventListener('mouseout', () => {
+                card.style.transform = 'none';
+            });
+        });
+
+        setInterval(() => {
+            document.querySelector('.notification-badge').textContent = 
+                `${Math.floor(Math.random() * 5)} Alerts`;
+        }, 3000);
+    </script>
+</body>
+</html>
