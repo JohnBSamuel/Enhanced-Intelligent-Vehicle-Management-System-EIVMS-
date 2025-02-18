@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVMS Platinum Edition</title>
+    <style>
+        :root {
+            --obsidian: #080C18;
+            --midnight: #0F172A;
+            --velvet: #1E293B;
+            --platinum: #E2E8F0;
+            --gold: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%);
+            --teal: linear-gradient(135deg, #00C1D4 0%, #0EA5E9 100%);
+            --emerald: #10B981;
+            --ruby: #EF4444;
+            --diamond-glow: radial-gradient(circle at 50% 50%, 
+                rgba(255,255,255,0.1) 0%, 
+                rgba(255,255,255,0.05) 50%, 
+                transparent 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', system-ui;
+        }
+
+        body {
+            background: var(--obsidian);
+            color: var(--platinum);
+            min-height: 100vh;
+        }
+
+        /* Crystal Header */
+        .dashboard-header {
+            background: var(--midnight);
+            padding: 1rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            backdrop-filter: blur(20px);
+        }
+
+        .dashboard-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--diamond-glow);
+            pointer-events: none;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.75rem;
+            background: var(--gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        /* Jewel Navigation */
+        .sidebar {
+            background: linear-gradient(195deg, 
+                rgba(30,41,59,0.9) 0%, 
+                rgba(15,23,42,0.9) 100%);
+            padding: 2rem 1.5rem;
+            width: 280px;
+            border-right: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(30px);
+            position: relative;
+        }
+
+        .nav-item {
+            padding: 1rem;
+            margin: 0.75rem 0;
+            border-radius: 8px;
+            color: var(--platinum);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255,255,255,0.05), 
+                transparent);
+            transition: 0.6s;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.03);
+            transform: translateX(10px);
+        }
+
+        .nav-item:hover::before {
+            left: 100%;
+        }
+
+        /* Diamond Cards */
+        .dashboard-card {
+            background: linear-gradient(145deg, 
+                rgba(30,41,59,0.7) 0%, 
+                rgba(15,23,42,0.7) 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: transform 0.4s, box-shadow 0.4s;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
+
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: var(--teal);
+            opacity: 0.05;
+            animation: rotate 15s linear infinite;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 16px 40px -12px rgba(0,0,0,0.3);
+        }
+
+        /* Liquid Metal Elements */
+        .status-indicator {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            margin-right: 12px;
+            box-shadow: 0 0 16px currentColor;
+            position: relative;
+        }
+
+        .status-indicator::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(circle at 30% 30%, 
+                rgba(255,255,255,0.4) 0%, 
+                transparent 70%);
+        }
+
+        .healthy { background: var(--emerald); }
+        .warning { background: var(--ruby); }
+
+        /* Quantum Map */
+        .live-map {
+            height: 500px;
+            background: var(--midnight);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .live-map::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent 0px,
+                transparent 1px,
+                rgba(255,255,255,0.02) 1px,
+                rgba(255,255,255,0.02) 2px
+            );
+            pointer-events: none;
+        }
+
+        /* Plasma Buttons */
+        button {
+            background: linear-gradient(135deg, 
+                rgba(14, 165, 233, 0.8) 0%, 
+                rgba(0, 193, 212, 0.8) 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent, 
+                rgba(255,255,255,0.1), 
+                transparent);
+            animation: rotate 4s linear infinite;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px -6px rgba(14, 165, 233, 0.3);
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <header class="dashboard-header">
+            <div class="logo">EVMS PLATINUM</div>
+            <div class="header-controls">
+                <input type="text" placeholder="Search..." 
+                       style="background: rgba(255,255,255,0.05); 
+                              border: 1px solid rgba(255,255,255,0.1);
+                              padding: 0.75rem 1.5rem;
+                              border-radius: 12px;
+                              color: var(--platinum);
+                              backdrop-filter: blur(20px);
+                              width: 300px">
+                <div style="display: flex; gap: 2rem; align-items: center">
+                    <div style="display: flex; align-items: center; gap: 1rem">
+                        <div class="status-indicator healthy"></div>
+                        <div style="font-weight: 500">John Doe</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="sidebar">
+            <div class="nav-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                Dashboard
+            </div>
+            <div class="nav-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2s3 5 3 10-3 10-3 10M3 10h18M3 14h18"/>
+                </svg>
+                Live Tracking
+            </div>
+            <div class="nav-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 3h18v18H3zM18 16.01V18M6 15v2M6 6v2M12 3v3"/>
+                </svg>
+                Analytics
+            </div>
+        </div>
+
+        <main style="padding: 3rem">
+            <div class="live-map">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                            text-align: center; color: var(--platinum); z-index: 1">
+                    <div style="font-size: 1.5rem; margin-bottom: 1rem">Global Fleet Overview</div>
+                    <div style="color: rgba(255,255,255,0.3)">Real-time telemetry integration</div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; margin-top: 3rem">
+                <div class="dashboard-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem">
+                        <h2 style="font-size: 1.5rem">Fleet Health</h2>
+                        <div style="display: flex; gap: 1rem">
+                            <div class="status-indicator healthy"></div>
+                            <div class="status-indicator warning"></div>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem">
+                        <div>
+                            <div style="font-size: 2.5rem; background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent">
+                                24
+                            </div>
+                            <div style="color: rgba(255,255,255,0.6)">Optimal Systems</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2.5rem; color: var(--ruby)">3</div>
+                            <div style="color: rgba(255,255,255,0.6)">Require Attention</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem">
+                        <h2 style="font-size: 1.5rem">Predictive Maintenance</h2>
+                        <div style="font-size: 1.25rem; background: var(--teal); -webkit-background-clip: text; -webkit-text-fill-color: transparent">
+                            98.7%
+                        </div>
+                    </div>
+                    <div style="height: 120px; background: rgba(255,255,255,0.03); border-radius: 12px;
+                                position: relative; overflow: hidden">
+                        <!-- Add timeline visualization here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Add smooth scroll and interactions
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.style.transform = 'translateX(15px)';
+                setTimeout(() => item.style.transform = 'translateX(10px)', 100);
+            });
+        });
+
+        // Dynamic status updates
+        setInterval(() => {
+            const statusIndicators = document.querySelectorAll('.status-indicator');
+            statusIndicators.forEach(indicator => {
+                indicator.style.boxShadow = `0 0 ${Math.random() * 20 + 10}px ${indicator.style.backgroundColor}`;
+            });
+        }, 3000);
+    </script>
+</body>
+</html>
